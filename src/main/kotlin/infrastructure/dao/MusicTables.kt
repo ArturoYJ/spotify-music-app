@@ -2,33 +2,25 @@ package com.example.infrastructure.dao
 
 import org.jetbrains.exposed.sql.Table
 
-
-object Artists : Table("artists") {
-    val id = integer("id").autoIncrement()
-    val name = varchar("name", 128)
-    val bio = text("bio")
-    val imageUrl = varchar("image_url", 255)
-
+object Artists : Table("artistas") {
+    val id = uuid("id").autoGenerate()
+    val name = varchar("name", 100)
+    val genre = varchar("genre", 50).nullable()
     override val primaryKey = PrimaryKey(id)
 }
 
-object Albums : Table("albums") {
-    val id = integer("id").autoIncrement()
-    val name = varchar("name", 128)
-    val year = integer("year")
-    val coverUrl = varchar("cover_url", 255)
-    val artistId = integer("artist_id").references(Artists.id)
-
+object Albums : Table("albumes") {
+    val id = uuid("id").autoGenerate()
+    val title = varchar("title", 150)
+    val releaseYear = integer("release_year").nullable()
+    val artistId = uuid("artist_id").references(Artists.id)
     override val primaryKey = PrimaryKey(id)
 }
 
-object Songs : Table("songs") {
-    val id = integer("id").autoIncrement()
-    val title = varchar("title", 128)
-    val durationSeconds = integer("duration_seconds")
-    val songUrl = varchar("song_url", 255)
-
-    val albumId = integer("album_id").references(Albums.id)
-
+object Songs : Table("tracks") {
+    val id = uuid("id").autoGenerate()
+    val title = varchar("title", 150)
+    val duration = integer("duration")
+    val albumId = uuid("album_id").references(Albums.id)
     override val primaryKey = PrimaryKey(id)
 }
