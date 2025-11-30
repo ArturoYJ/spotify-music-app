@@ -1,21 +1,34 @@
-package com.example.dao
+package com.example.infrastructure.dao
 
-import com.example.domain.models.Albums
-import com.example.domain.models.Artists
-import com.example.domain.models.Songs
-import com.example.domain.ports.DAOFacade
-import com.example.dto.*
+import com.example.domain.models.Album
+import com.example.domain.models.Artist
+import com.example.domain.models.NewAlbum
+import com.example.domain.models.NewArtist
+import com.example.domain.models.NewSong
+import com.example.domain.models.Song
+import com.example.domain.ports.MusicRepository
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
-class DAOFacadeImpl : DAOFacade {
+class DAOFacadeImpl : MusicRepository {
 
     private fun rowToArtist(row: ResultRow) = Artist(
-        id = row[Artists.id], name = row[Artists.name], bio = row[Artists.bio], imageUrl = row[Artists.imageUrl])
+        id = row[Artists.id], name = row[Artists.name], bio = row[Artists.bio], imageUrl = row[Artists.imageUrl]
+    )
     private fun rowToAlbum(row: ResultRow) = Album(
-        id = row[Albums.id], name = row[Albums.name], year = row[Albums.year], coverUrl = row[Albums.coverUrl], artistId = row[Albums.artistId])
+        id = row[Albums.id],
+        name = row[Albums.name],
+        year = row[Albums.year],
+        coverUrl = row[Albums.coverUrl],
+        artistId = row[Albums.artistId]
+    )
     private fun rowToSong(row: ResultRow) = Song(
-        id = row[Songs.id], title = row[Songs.title], durationSeconds = row[Songs.durationSeconds], songUrl = row[Songs.songUrl], albumId = row[Songs.albumId])
+        id = row[Songs.id],
+        title = row[Songs.title],
+        durationSeconds = row[Songs.durationSeconds],
+        songUrl = row[Songs.songUrl],
+        albumId = row[Songs.albumId]
+    )
 
     override suspend fun allArtists(): List<Artist> = DatabaseFactory.dbQuery {
         Artists.selectAll().map(::rowToArtist)

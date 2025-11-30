@@ -1,13 +1,13 @@
 package com.example.domain.ports
 
-import com.example.dto.Album
-import com.example.dto.Artist
-import com.example.dto.NewAlbum
-import com.example.dto.NewArtist
-import com.example.dto.NewSong
-import com.example.dto.Song
+import com.example.domain.models.Album
+import com.example.domain.models.Artist
+import com.example.domain.models.NewAlbum
+import com.example.domain.models.NewArtist
+import com.example.domain.models.NewSong
+import com.example.domain.models.Song
 
-interface DAOFacade {
+interface MusicRepository {
 
         suspend fun allArtists(): List<Artist>
         suspend fun artist(id: Int): Artist?

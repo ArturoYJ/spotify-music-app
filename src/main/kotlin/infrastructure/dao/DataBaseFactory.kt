@@ -1,8 +1,5 @@
-package com.example.dao
+package com.example.infrastructure.dao
 
-import com.example.domain.models.Albums
-import com.example.domain.models.Artists
-import com.example.domain.models.Songs
 import io.ktor.server.config.*
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database

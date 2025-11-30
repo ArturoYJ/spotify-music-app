@@ -1,18 +1,20 @@
-package com.example.plugins
+package com.example.infrastructure.routes
 
+import com.example.domain.models.NewAlbum
+import com.example.domain.models.NewArtist
+import com.example.domain.models.NewSong
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import com.example.models.*
-import com.example.dao.*
+import com.example.domain.ports.MusicRepository
 
-fun Application.configureRouting(dao: DAOFacade) {
+fun Application.configureRouting(dao: MusicRepository) {
     routing {
 
-        // endpoint artist
         route("/artists") {
+
             get { call.respond(dao.allArtists()) }
             post {
                 val form = call.receive<NewArtist>()
@@ -39,13 +41,11 @@ fun Application.configureRouting(dao: DAOFacade) {
                 }
 
                 try {
-                    // 2. Obtener los datos nuevos del Body (Igual que en POST)
+
                     val form = call.receive<NewArtist>()
 
-                    // 3. Llamar al cocinero (DAO)
                     val edited = dao.editArtist(id, form)
 
-                    // 4. Responder según el resultado booleano
                     if (edited) {
                         call.respond(HttpStatusCode.OK, "Artista actualizado")
                     } else {
@@ -80,9 +80,9 @@ fun Application.configureRouting(dao: DAOFacade) {
 
                     val edited = dao.editAlbum(id, form)
                     if (edited) {
-                        call.respond(HttpStatusCode.OK, "Artista actualizado")
+                        call.respond(HttpStatusCode.OK, "Album actualizado")
                     } else {
-                        call.respond(HttpStatusCode.NotFound, "No existe el artista $id")
+                        call.respond(HttpStatusCode.NotFound, "No existe el album $id")
                     }
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.BadRequest, "Error con json: ${e.message}")
@@ -115,9 +115,9 @@ fun Application.configureRouting(dao: DAOFacade) {
                     val edited = dao.editSong(id, form)
 
                     if (edited) {
-                        call.respond(HttpStatusCode.OK, "Artista actualizado")
+                        call.respond(HttpStatusCode.OK, "Canción actualizada")
                     } else {
-                        call.respond(HttpStatusCode.NotFound, "No existe el artista $id")
+                        call.respond(HttpStatusCode.NotFound, "No existe la canción $id")
                     }
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.BadRequest, "Error con json: ${e.message}")

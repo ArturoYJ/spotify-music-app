@@ -1,4 +1,4 @@
-package com.example.domain.models
+package com.example.infrastructure.dao
 
 import org.jetbrains.exposed.sql.Table
 
