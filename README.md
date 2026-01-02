@@ -1,44 +1,127 @@
-# ktorBackcitoMusicaClon
+# Spotify Music Ktor API
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+![Kotlin](https://img.shields.io/badge/Kotlin-2.0-7F52FF?logo=kotlin)
+![Ktor](https://img.shields.io/badge/Ktor-3.0-orange?logo=ktor)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-Here are some useful links to get you started:
+Backend ligero y asíncrono diseñado para una app web de música. Este proyecto demuestra la implementación de **Arquitectura Hexagonal (Ports & Adapters)** utilizando el framework Ktor.
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+> **Frontend:** Consulta el [cliente Angular](https://github.com/ArturoYJ/spotify-music-player-angular.git) en mi perfil de GitHub.
 
-## Features
+## Filosofía del Proyecto
 
-Here's a list of features included in this project:
+El objetivo principal no es solo crear una API, sino desacoplar la lógica de negocio de los detalles de implementación:
+* **Domain:** Contiene los modelos (`Artist`, `Album`) y puertos (`MusicRepository`) agnósticos a la base de datos.
+* **Infrastructure:** Implementa la persistencia usando **Exposed** (ORM) y expone la API REST.
 
-| Name                                                                   | Description                                                                        |
-| ------------------------------------------------------------------------|------------------------------------------------------------------------------------ |
-| [Routing](https://start.ktor.io/p/routing)                             | Provides a structured routing DSL                                                  |
-| [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library                     |
-| [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
-| [Exposed](https://start.ktor.io/p/exposed)                             | Adds Exposed database to your application                                          |
-| [Status Pages](https://start.ktor.io/p/status-pages)                   | Provides exception handling for routes                                             |
-| [Call Logging](https://start.ktor.io/p/call-logging)                   | Logs client requests                                                               |
-
-## Building & Running
-
-To build or run the project, use one of the following tasks:
-
-| Task                                    | Description                                                          |
-| -----------------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`                        | Run the tests                                                        |
-| `./gradlew build`                       | Build everything                                                     |
-| `./gradlew buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `./gradlew buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `./gradlew publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `./gradlew run`                         | Run the server                                                       |
-| `./gradlew runDocker`                   | Run using the local docker image                                     |
-
-If the server starts successfully, you'll see the following output:
+## Estructura del Proyecto
 
 ```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+📁 src/main/kotlin
+├── domain/          # Modelos y puertos (lógica de negocio pura)
+├── infrastructure/  # Adaptadores (Exposed, controladores REST)
+└── application/     # Casos de uso
 ```
 
+## Tecnologías Utilizadas
+
+| Tecnología | Versión | Descripción |
+|------------|---------|-------------|
+| Kotlin | 2.0 | Lenguaje de programación |
+| Ktor | 3.0 | Framework web asíncrono |
+| PostgreSQL | 16 | Base de datos relacional |
+| Exposed | - | ORM de JetBrains |
+
+## Instalación y Ejecución
+
+### Prerrequisitos
+* JDK 17+
+* PostgreSQL corriendo en puerto `5432`
+
+### Variables de Entorno
+
+| Variable | Descripción | Valor por defecto |
+|----------|-------------|-------------------|
+| `DB_HOST` | Host de PostgreSQL | `localhost` |
+| `DB_PORT` | Puerto de PostgreSQL | `5432` |
+| `DB_NAME` | Nombre de la base de datos | `baseSpotifyMusicClon` |
+| `DB_USER` | Usuario de PostgreSQL | `postgres` |
+| `DB_PASSWORD` | Contraseña de PostgreSQL | - |
+
+### Pasos
+
+1. **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/ArturoYJ/spotify-music-ktor-api.git
+    cd spotify-music-ktor-api
+    ```
+
+2. **Configurar Base de Datos:**
+    Asegúrate de que tus credenciales en `src/main/resources/application.yaml` coincidan con tu instancia local de Postgres.
+
+3. **Ejecutar el servidor:**
+    ```bash
+    ./gradlew run
+    ```
+    El servidor iniciará en `http://0.0.0.0:3000`.
+
+## API Endpoints
+
+La API expone recursos RESTful para la gestión de metadatos musicales:
+
+| Método | Endpoint         | Descripción                          |
+|--------|------------------|--------------------------------------|
+| GET    | `/api/artistas`  | Obtener todos los artistas           |
+| POST   | `/api/artistas`  | Registrar un nuevo artista           |
+| GET    | `/api/albumes`   | Obtener álbumes                      |
+| POST   | `/api/albumes`   | Crear álbum (Vinculado a ArtistID)   |
+| GET    | `/api/tracks`    | Obtener canciones                    |
+| POST   | `/api/tracks`    | Subir canción (Vinculada a AlbumID)  |
+
+### Ejemplos de Request
+
+**POST `/api/artistas`**
+```json
+{
+  "nombre": "Bad Bunny",
+  "genero": "Reggaeton"
+}
+```
+
+**POST `/api/albumes`**
+```json
+{
+  "nombre": "Un Verano Sin Ti",
+  "artistaId": 1
+}
+```
+
+**POST `/api/tracks`**
+```json
+{
+  "nombre": "Me Porto Bonito",
+  "albumId": 1
+}
+```
+
+> **Nota:** Incluye protección de integridad referencial a nivel de aplicación (no permite borrar artistas si tienen álbumes asociados).
+
+## Testing
+
+El proyecto incluye una colección de Postman (`test_evaluation_backend.json`) para pruebas de integración automatizadas.
+
+```bash
+# Ejecutar tests unitarios
+./gradlew test
+```
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+<p align="center">
+  Desarrollado con ❤️ por <a href="https://github.com/ArturoYJ">ArturoYJ</a>
+</p>
