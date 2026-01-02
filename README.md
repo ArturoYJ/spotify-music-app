@@ -7,7 +7,7 @@
 
 Backend ligero y asíncrono diseñado para una app web de música. Este proyecto demuestra la implementación de **Arquitectura Hexagonal (Ports & Adapters)** utilizando el framework Ktor.
 
-> **Frontend:** Consulta el [cliente Angular](https://github.com/ArturoYJ/spotify-music-player-angular.git) en mi perfil de GitHub.
+> **Frontend:** Consulta el [cliente Angular](https://github.com/ArturoYJ/spotify-music-player-angular.git) en mi perfil de GitHub (tener en cuenta que es un proyecto en desarrollo).
 
 ## Filosofía del Proyecto
 
@@ -35,19 +35,15 @@ El objetivo principal no es solo crear una API, sino desacoplar la lógica de ne
 
 ## Instalación y Ejecución
 
-### Prerrequisitos
-* JDK 17+
-* PostgreSQL corriendo en puerto `5432`
-
 ### Variables de Entorno
 
 | Variable | Descripción | Valor por defecto |
 |----------|-------------|-------------------|
-| `DB_HOST` | Host de PostgreSQL | `localhost` |
-| `DB_PORT` | Puerto de PostgreSQL | `5432` |
-| `DB_NAME` | Nombre de la base de datos | `baseSpotifyMusicClon` |
-| `DB_USER` | Usuario de PostgreSQL | `postgres` |
-| `DB_PASSWORD` | Contraseña de PostgreSQL | - |
+| `DB_HOST` | Host de PostgreSQL | `tuHost` |
+| `DB_PORT` | Puerto de PostgreSQL | `tuPuerto` |
+| `DB_NAME` | Nombre de la base de datos | `tuBaseDeDatos` |
+| `DB_USER` | Usuario de PostgreSQL | `tuUsuario` |
+| `DB_PASSWORD` | Contraseña de PostgreSQL | `tuContraseña` |
 
 ### Pasos
 
