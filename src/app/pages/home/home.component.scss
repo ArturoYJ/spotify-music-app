@@ -1,0 +1,315 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+// ==================================
+// Layout Principal
+// ==================================
+
+.apple-music-container {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  grid-template-rows: 1fr $player-height;
+  height: 100vh;
+  background: linear-gradient(180deg, $bg-dark-secondary 0%, $bg-dark-primary 100%);
+  color: $text-primary;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+// ==================================
+// Área de Contenido Principal
+// ==================================
+
+.main-content {
+  grid-column: 2;
+  grid-row: 1;
+  padding: $spacing-3xl $spacing-4xl;
+  overflow-y: auto;
+  position: relative;
+
+  @include custom-scrollbar();
+}
+
+// ==================================
+// Secciones de Contenido
+// ==================================
+
+.content-section,
+.results-section {
+  margin-bottom: $spacing-5xl;
+
+  h2 {
+    font-size: $font-2xl;
+    font-weight: 700;
+    margin: 0 0 $spacing-xl 0;
+  }
+}
+
+// ==================================
+// Back Button (Resultados de búsqueda)
+// ==================================
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+  background: transparent;
+  border: none;
+  color: $color-primary;
+  font-size: $font-lg;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: $spacing-xl;
+  padding: $spacing-sm 0;
+  transition: opacity $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// ==================================
+// Grids de Albums y Artistas
+// ==================================
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: $spacing-2xl;
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $spacing-2xl;
+}
+
+// ==================================
+// Album Card
+// ==================================
+
+.album-card {
+  cursor: pointer;
+  @include hover-lift();
+
+  &:hover .album-cover {
+    box-shadow: $shadow-lg;
+  }
+
+  .album-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    transition: box-shadow $transition-fast;
+    object-fit: cover;
+  }
+
+  .album-info {
+    margin-top: $spacing-md;
+
+    h3 {
+      font-size: $font-base;
+      font-weight: 600;
+      margin: 0 0 $spacing-xs 0;
+      @include truncate;
+    }
+
+    p {
+      font-size: $font-sm;
+      color: $text-secondary;
+      margin: 0;
+      @include truncate;
+    }
+  }
+}
+
+// ==================================
+// Artist Card
+// ==================================
+
+.artist-card {
+  text-align: center;
+  cursor: pointer;
+  @include hover-lift();
+
+  &:hover .artist-image {
+    box-shadow: $shadow-lg;
+  }
+
+  .artist-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: $radius-full;
+    object-fit: cover;
+    box-shadow: $shadow-md;
+    transition: box-shadow $transition-fast;
+  }
+
+  h3 {
+    margin-top: $spacing-md;
+    font-size: $font-base;
+    font-weight: 600;
+  }
+}
+
+// ==================================
+// Lista de Tracks
+// ==================================
+
+.track-list {
+  background: $bg-overlay;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.track-item {
+  display: grid;
+  grid-template-columns: 40px 60px 1fr 2fr 80px;
+  gap: $spacing-lg;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  cursor: pointer;
+  transition: background $transition-fast;
+  border-bottom: 1px solid $bg-overlay;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: $bg-overlay-hover;
+  }
+
+  &.selected {
+    background: rgba($color-primary, 0.15);
+  }
+
+  .track-number {
+    text-align: center;
+    color: $text-muted;
+    font-size: $font-md;
+  }
+
+  .track-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: $radius-sm;
+    object-fit: cover;
+  }
+
+  .track-info {
+    min-width: 0;
+
+    .track-name {
+      font-size: $font-base;
+      font-weight: 500;
+      margin-bottom: $spacing-xs;
+      @include truncate;
+    }
+
+    .track-artist {
+      font-size: $font-sm;
+      color: $text-secondary;
+      @include truncate;
+    }
+  }
+
+  .track-album {
+    font-size: $font-md;
+    color: $text-secondary;
+    @include truncate;
+  }
+
+  .track-duration {
+    text-align: right;
+    font-size: $font-md;
+    color: $text-muted;
+  }
+}
+
+// ==================================
+// Loading State
+// ==================================
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid $bg-overlay;
+    border-top-color: $color-primary;
+    border-radius: $radius-full;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto $spacing-lg;
+  }
+
+  p {
+    color: $text-secondary;
+    font-size: $font-md;
+  }
+}
+
+@keyframes spin {
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+// ==================================
+// Responsive Design
+// ==================================
+
+@media (max-width: 1024px) {
+  .apple-music-container {
+    grid-template-columns: $sidebar-width-md 1fr;
+  }
+
+  .track-item {
+    grid-template-columns: 40px 50px 1fr 1fr 70px;
+    gap: $spacing-md;
+  }
+}
+
+@media (max-width: 768px) {
+  .apple-music-container {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: $spacing-xl;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: $spacing-lg;
+  }
+
+  .track-item {
+    grid-template-columns: 40px 50px 1fr 60px;
+    
+    .track-album {
+      display: none;
+    }
+  }
+
+  .back-btn {
+    font-size: $font-md;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

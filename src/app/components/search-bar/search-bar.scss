@@ -1,0 +1,97 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+// ==================================
+// Search Bar Component
+// ==================================
+
+.search-bar {
+  margin-bottom: $spacing-3xl;
+  position: sticky;
+  top: 0;
+  z-index: $z-search;
+  background: linear-gradient(180deg, $bg-dark-secondary 0%, rgba($bg-dark-secondary, 0.95) 100%);
+  padding-bottom: $spacing-xl;
+}
+
+// ==================================
+// Search Input Wrapper
+// ==================================
+
+.search-input-wrapper {
+  position: relative;
+  max-width: 600px;
+
+  .search-icon {
+    position: absolute;
+    left: $spacing-lg;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+    color: $text-muted;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 14px 48px;
+    background: $bg-search;
+    border: 1px solid $border-medium;
+    border-radius: $radius-lg;
+    color: $text-primary;
+    font-size: $font-base;
+    outline: none;
+    transition: all $transition-fast;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &:focus {
+      background: $bg-search-focus;
+      border-color: $color-primary;
+    }
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: $spacing-md;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: $text-secondary;
+    cursor: pointer;
+    padding: $spacing-xs;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $transition-fast;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.5;
+    }
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+}
+
+// ==================================
+// Responsive
+// ==================================
+
+@media (max-width: 768px) {
+  .search-input-wrapper {
+    max-width: 100%;
+  }
+
+  .search-bar {
+    margin-bottom: $spacing-xl;
+  }
+}
