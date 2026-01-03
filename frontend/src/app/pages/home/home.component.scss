@@ -5,7 +5,7 @@
 // Layout Principal
 // ==================================
 
-.apple-music-container {
+.spotify-music-container {
   display: grid;
   grid-template-columns: $sidebar-width 1fr;
   grid-template-rows: 1fr $player-height;
@@ -262,8 +262,8 @@
 }
 
 @keyframes spin {
-  to { 
-    transform: rotate(360deg); 
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -272,7 +272,7 @@
 // ==================================
 
 @media (max-width: 1024px) {
-  .apple-music-container {
+  .spotify-music-container {
     grid-template-columns: $sidebar-width-md 1fr;
   }
 
@@ -283,7 +283,7 @@
 }
 
 @media (max-width: 768px) {
-  .apple-music-container {
+  .spotify-music-container {
     grid-template-columns: 1fr;
   }
 
@@ -298,7 +298,7 @@
 
   .track-item {
     grid-template-columns: 40px 50px 1fr 60px;
-    
+
     .track-album {
       display: none;
     }
@@ -306,7 +306,7 @@
 
   .back-btn {
     font-size: $font-md;
-    
+
     svg {
       width: 18px;
       height: 18px;

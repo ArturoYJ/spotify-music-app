@@ -1,4 +1,4 @@
-<div class="apple-music-container">
+<div class="spotify-music-container">
   <app-sidebar></app-sidebar>
 
   <main class="main-content">
@@ -7,7 +7,7 @@
     <div *ngIf="searchResults" class="search-results">
       <button (click)="handleClearSearch()" class="back-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
+          <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
         Resultados de búsqueda
       </button>
@@ -15,12 +15,8 @@
       <section *ngIf="searchResults.tracks.length > 0" class="results-section">
         <h2>Canciones</h2>
         <div class="track-list">
-          <div
-            *ngFor="let track of searchResults.tracks; let i = index"
-            class="track-item"
-            (click)="selectTrack(track)"
-            [class.selected]="selectedTrack?.id === track.id"
-          >
+          <div *ngFor="let track of searchResults.tracks; let i = index" class="track-item" (click)="selectTrack(track)"
+            [class.selected]="selectedTrack?.id === track.id">
             <div class="track-number">{{ i + 1 }}</div>
             <img [src]="track.albumCover" [alt]="track.album" class="track-cover" />
             <div class="track-info">
@@ -28,7 +24,8 @@
               <div class="track-artist">{{ track.artist }}</div>
             </div>
             <div class="track-album">{{ track.album }}</div>
-            <div class="track-duration">--:--</div> </div>
+            <div class="track-duration">--:--</div>
+          </div>
         </div>
       </section>
 
@@ -56,12 +53,12 @@
       </section>
     </div>
 
-      <div *ngIf="isLoading && !searchResults" class="loading">
-        <div class="spinner"></div>
-        <p>Cargando contenido...</p>
-      </div>
+    <div *ngIf="isLoading && !searchResults" class="loading">
+      <div class="spinner"></div>
+      <p>Cargando contenido...</p>
+    </div>
 
-      <div *ngIf="!searchResults && !isLoading" class="home-content">
+    <div *ngIf="!searchResults && !isLoading" class="home-content">
 
       <section class="content-section">
         <h2>Nuevos Lanzamientos</h2>
