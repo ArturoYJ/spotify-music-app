@@ -8,6 +8,10 @@
 .env.*.local
 *.env
 
+# Angular environment files (contienen credenciales)
+**/environments/environment.ts
+**/environments/environment.prod.ts
+
 # ===================
 # Dependencies
 # ===================

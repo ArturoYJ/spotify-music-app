@@ -7,6 +7,6 @@ ktor:
 
 storage:
   driverClassName: "org.postgresql.Driver"
-  jdbcUrl: "jdbc:postgresql://localhost:5432/baseSpotifyMusicClon"
-  dbUser: "postgres"
-  dbPassword: "qwerty123"
+  jdbcUrl: ${?DB_JDBC_URL}
+  dbUser: ${?DB_USER}
+  dbPassword: ${?DB_PASSWORD}
