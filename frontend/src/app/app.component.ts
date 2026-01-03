@@ -17,5 +17,5 @@ import { RouterOutlet } from '@angular/router';
   `]
 })
 export class AppComponent {
-  title = 'apple-music-clone';
+  title = 'spotify-music-app';
 }

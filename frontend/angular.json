@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "apple-music-clone": {
+    "spotify-music-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -66,16 +66,16 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "apple-music-clone:build:production"
+              "buildTarget": "spotify-music-app:build:production"
             },
             "development": {
-              "buildTarget": "apple-music-clone:build:development"
+              "buildTarget": "spotify-music-app:build:development"
             }
           },
           "defaultConfiguration": "development",
-          "options": {  
-            "proxyConfig": "proxy.conf.json" 
-          }           
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
