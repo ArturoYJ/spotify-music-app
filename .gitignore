@@ -1,17 +1,57 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+# ===================
+# Environment Variables (IMPORTANTE para seguridad)
+# ===================
+.env
+.env.local
+.env.*.local
+*.env
 
-# Node
-/node_modules
+# ===================
+# Dependencies
+# ===================
+**/node_modules/
+
+# ===================
+# Build outputs
+# ===================
+**/dist/
+**/build/
+**/out-tsc/
+**/tmp/
+**/bazel-out/
+
+# ===================
+# Angular specific
+# ===================
+**/.angular/
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+
+# ===================
+# Gradle/Kotlin specific
+# ===================
+**/.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+*.ipr
+*.iws
+
+# ===================
+# Logs
+# ===================
+*.log
 npm-debug.log
 yarn-error.log
 
+# ===================
 # IDEs and editors
+# ===================
 .idea/
 .project
 .classpath
@@ -19,6 +59,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+*.iml
 
 # Visual Studio Code
 .vscode/*
@@ -28,17 +69,8 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
+# ===================
 # System files
+# ===================
 .DS_Store
 Thumbs.db
-.DS_Store
