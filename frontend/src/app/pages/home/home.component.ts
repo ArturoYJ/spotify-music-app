@@ -1,13 +1,10 @@
-// src/app/pages/home/home.component.ts
-
-import { Component, OnInit, Inject } from '@angular/core'; // <-- Añade Inject
+import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Track, Album, Artist, SearchResult } from '../../domain/models';
-import { MusicRepositoryPort } from '../../domain/ports/music-repository.port'; // <-- Importa el Puerto
-import { SpotifyAdapter } from '../../services/spotify.adapter'; // <-- Importa el Adaptador
+import { MusicRepositoryPort } from '../../domain/ports/music-repository.port';
+import { SpotifyAdapter } from '../../services/spotify.adapter';
 
-// Importa los componentes
 import { SidebarComponent } from '../../components/sidebar/sidebar';
 import { SearchBarComponent } from '../../components/search-bar/search-bar';
 import { PlayerBarComponent } from '../../components/player-bar/player-bar';
@@ -28,7 +25,6 @@ export class HomeComponent implements OnInit {
   isSearching = false;
   isLoading = true;
 
-  // Inyecta el MusicRepositoryPort directamente
   constructor(
     @Inject(MusicRepositoryPort) private musicRepository: MusicRepositoryPort
   ) {
@@ -37,9 +33,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log('Esperando que Spotify esté listo...');
-    
-    // Comprueba si el repositorio es el adaptador de Spotify para llamar a waitForToken
-    // Esto es necesario para que el componente espere al token
+
     if (this.musicRepository instanceof SpotifyAdapter) {
       this.musicRepository.waitForToken()
         .then(() => {
@@ -51,14 +45,13 @@ export class HomeComponent implements OnInit {
           this.isLoading = false;
         });
     } else {
-      // Si no es Spotify (quizás para pruebas), carga datos directamente
       this.loadInitialData();
     }
   }
 
   loadInitialData() {
     console.log('Cargando datos iniciales...');
-    this.isLoading = true; // Asegúrate de mostrar el loader
+    this.isLoading = true;
     this.musicRepository.getNewReleases().subscribe({
       next: (data) => {
         this.newReleases = data;
@@ -72,9 +65,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  /**
-   * Maneja el evento 'search' emitido por SearchBarComponent
-   */
   handleSearch(query: string) {
     if (!query.trim()) {
       console.log('Búsqueda vacía');
@@ -83,9 +73,8 @@ export class HomeComponent implements OnInit {
 
     console.log('Buscando desde HomeComponent:', query);
     this.isSearching = true;
-    this.searchResults = null; // Limpia resultados anteriores
+    this.searchResults = null;
 
-    // Usa el repositorio directamente
     this.musicRepository.searchAll(query).subscribe({
       next: (results) => {
         this.searchResults = results;
@@ -99,17 +88,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  /**
-   * Maneja el evento 'clear' emitido por SearchBarComponent
-   */
   handleClearSearch() {
     console.log('Limpiando búsqueda desde HomeComponent');
     this.searchResults = null;
   }
 
-  /**
-   * Selecciona una canción para "reproducir"
-   */
   selectTrack(track: Track) {
     this.selectedTrack = track;
     console.log('Track seleccionado:', track.name, 'por', track.artist);

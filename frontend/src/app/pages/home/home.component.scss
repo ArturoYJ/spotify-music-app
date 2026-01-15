@@ -1,10 +1,6 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixins';
 
-// ==================================
-// Layout Principal
-// ==================================
-
 .spotify-music-container {
   display: grid;
   grid-template-columns: $sidebar-width 1fr;
@@ -14,10 +10,6 @@
   color: $text-primary;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-
-// ==================================
-// Área de Contenido Principal
-// ==================================
 
 .main-content {
   grid-column: 2;
@@ -29,10 +21,6 @@
   @include custom-scrollbar();
 }
 
-// ==================================
-// Secciones de Contenido
-// ==================================
-
 .content-section,
 .results-section {
   margin-bottom: $spacing-5xl;
@@ -43,10 +31,6 @@
     margin: 0 0 $spacing-xl 0;
   }
 }
-
-// ==================================
-// Back Button (Resultados de búsqueda)
-// ==================================
 
 .back-btn {
   display: inline-flex;
@@ -74,10 +58,6 @@
   }
 }
 
-// ==================================
-// Grids de Albums y Artistas
-// ==================================
-
 .album-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -89,10 +69,6 @@
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: $spacing-2xl;
 }
-
-// ==================================
-// Album Card
-// ==================================
 
 .album-card {
   cursor: pointer;
@@ -130,10 +106,6 @@
   }
 }
 
-// ==================================
-// Artist Card
-// ==================================
-
 .artist-card {
   text-align: center;
   cursor: pointer;
@@ -158,10 +130,6 @@
     font-weight: 600;
   }
 }
-
-// ==================================
-// Lista de Tracks
-// ==================================
 
 .track-list {
   background: $bg-overlay;
@@ -234,10 +202,6 @@
   }
 }
 
-// ==================================
-// Loading State
-// ==================================
-
 .loading {
   position: absolute;
   top: 50%;
@@ -266,10 +230,6 @@
     transform: rotate(360deg);
   }
 }
-
-// ==================================
-// Responsive Design
-// ==================================
 
 @media (max-width: 1024px) {
   .spotify-music-container {
